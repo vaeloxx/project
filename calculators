@@ -12,6 +12,8 @@ import os                           ####This is used to help clear text while go
 from prompt_toolkit.validation import Validator, ValidationError                ####This creates number checks for options
 from prompt_toolkit import prompt
 
+# from termcolor import cprint           ###For colored print, do cprint instead of print (add "," outside the quotes and a color)
+#                                        ###ex: cprint("hello", "red")
 
 
 
@@ -65,7 +67,7 @@ def numTotalDrop(x: str) -> str:
 
 
 def pageBreak():
-    print("------------------------------------------------------------")
+    print("--------------------------------------------------------------")
 
 
 
@@ -78,9 +80,13 @@ def pageBreak():
 pageBreak()
 time.sleep(.4)
 print("Welcome!")
-time.sleep(1)
-print("This is a random attempt drop-rate calculator, a drop / dry-rate calculator and a multi drop-rate calculator.")
-time.sleep(1)
+time.sleep(.4)
+print("This is a random attempt drop-rate calculator,")
+time.sleep(.4)
+print("a drop / dry-rate calculator,")
+time.sleep(.4)
+print("and a multi drop-rate calculator.")
+time.sleep(.4)
 pageBreak()
 time.sleep(.4)
 
@@ -129,11 +135,11 @@ while quitcalc == False:
         likelyToGetDrop = 1 - ((1 - dropcalculation) ** numFails)
         likelyToGetDropPercentage = likelyToGetDrop * 100
 
-        time.sleep(1)
+        time.sleep(.4)
         print(f"Number of fails until drop: {numFails}")
-        time.sleep(1)
+        time.sleep(.4)
         print(f"The chances of you getting the drop at this rate was {likelyToGetDropPercentage}%.")
-        time.sleep(1)
+        time.sleep(.4)
         pageBreak()
 
 
@@ -155,9 +161,9 @@ while quitcalc == False:
         amountOfFails = int(input("How many fails have you had? "))
         dryCalculation = 1 - ((1 - dropcalculation) ** amountOfFails)
         percentage_you_should_have_had_by_now = dryCalculation * 100
-        time.sleep(1)
+        time.sleep(.4)
         print(f"You had a {percentage_you_should_have_had_by_now}% of having the drop by now.")
-        time.sleep(1)
+        time.sleep(.4)
         pageBreak()
 
 
@@ -199,9 +205,9 @@ while quitcalc == False:
             MultiCalculation2 = 1 - ((1 - dropcalculation2))
 
             percentage_chance_this_could_happen = MultiCalculation1 * MultiCalculation2 * 100
-            time.sleep(1)
+            time.sleep(.4)
             print(f"You had a {percentage_chance_this_could_happen}% of receiving this.")
-            time.sleep(1)
+            time.sleep(.4)
             pageBreak()
 
 
@@ -237,9 +243,9 @@ while quitcalc == False:
             MultiCalculation3 = 1 - ((1 - dropcalculation3))
 
             percentage_chance_this_could_happen = MultiCalculation1 * MultiCalculation2 * MultiCalculation3 * 100
-            time.sleep(1)
+            time.sleep(.4)
             print(f"You had a {percentage_chance_this_could_happen}% of receiving this.")
-            time.sleep(1)
+            time.sleep(.4)
             pageBreak()
 
 
@@ -284,9 +290,9 @@ while quitcalc == False:
             MultiCalculation4 = 1 - ((1 - dropcalculation4))
 
             percentage_chance_this_could_happen = MultiCalculation1 * MultiCalculation2 * MultiCalculation3 * MultiCalculation4 * 100
-            time.sleep(1)
+            time.sleep(.4)
             print(f"You had a {percentage_chance_this_could_happen}% of receiving this.")
-            time.sleep(1)
+            time.sleep(.4)
             pageBreak()
 
 
@@ -340,9 +346,9 @@ while quitcalc == False:
             MultiCalculation5 = 1 - ((1 - dropcalculation5))
 
             percentage_chance_this_could_happen = MultiCalculation1 * MultiCalculation2 * MultiCalculation3 * MultiCalculation4 * MultiCalculation5 * 100
-            time.sleep(1)
+            time.sleep(.4)
             print(f"You had a {percentage_chance_this_could_happen}% of receiving this.")
-            time.sleep(1)
+            time.sleep(.4)
             pageBreak()
 
 
@@ -405,9 +411,9 @@ while quitcalc == False:
             MultiCalculation6 = 1 - ((1 - dropcalculation6))
 
             percentage_chance_this_could_happen = MultiCalculation1 * MultiCalculation2 * MultiCalculation3 * MultiCalculation4 * MultiCalculation5 * MultiCalculation6 * 100
-            time.sleep(1)
+            time.sleep(.4)
             print(f"You had a {percentage_chance_this_could_happen}% of receiving this.")
-            time.sleep(1)
+            time.sleep(.4)
             pageBreak()
 
 
