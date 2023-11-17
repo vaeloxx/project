@@ -1,0 +1,422 @@
+#####-----Imports-----#####
+
+
+
+
+import random
+
+import time
+
+import os                           ####This is used to help clear text while going through prompts in the program.
+
+from prompt_toolkit.validation import Validator, ValidationError                ####This creates number checks for options
+from prompt_toolkit import prompt
+
+
+
+
+#####-----Number Check Function-----#####
+
+
+
+
+class FunctionyValidator(Validator):                            ####This is the function to create the number check to only allow the options available
+    def __init__(self, valfunc):
+        self.valfunc = valfunc
+
+    def validate(self, document):
+        text = document.text
+        valresult = self.valfunc(text)
+        if valresult:
+            raise ValidationError(message=valresult)
+        
+
+
+
+#####-----Defining Variables-----#####
+
+
+
+
+def numCheckCalcOpt(x: str) -> str:                   ####This is the defining factor for the number check (has to be inserted as "prompt" instead of "input")
+    try:                                                           ####(in the initial input line your options are on.)
+        numx = int(x)
+    except:
+        return "That's not a number."
+    
+    if 0 <= numx <= 3:
+        return ""
+    else:
+        return "Enter (1) for random attempt drop-rate calculator, (2) for drop / dry-rate calculator, (3) for multi drop-rate calculator, or (0) to quit program."
+    
+
+
+def numTotalDrop(x: str) -> str:
+    try:
+        numx = int(x)
+    except:
+        return "That's not a number."
+    
+    if 2 <= numx <= 6:
+        return ""
+    else:
+        return "Enter the amount of drops you are calculating for. (between 2-6)"
+
+
+
+def pageBreak():
+    print("------------------------------------------------------------")
+
+
+
+
+#####-----INTRO-----#####
+
+
+
+
+pageBreak()
+time.sleep(.4)
+print("Welcome!")
+time.sleep(1)
+print("This is a random attempt drop-rate calculator, a drop / dry-rate calculator and a multi drop-rate calculator.")
+time.sleep(1)
+pageBreak()
+time.sleep(.4)
+
+quitcalc = False
+
+
+
+
+#####-----Random Attempt Drop Rate Calculator-----#####
+
+
+
+
+while quitcalc == False:
+    print("If you want the random attempt drop-rate calculator, press 1. ")
+    time.sleep(.4)
+    print("If you want the drop / dry-rate calculator, press 2. ")
+    time.sleep(.4)
+    print("If you want the multi drop-rate calculator, press 3. ")
+    time.sleep(.4)
+    CalculatorOption = int(prompt("If you want to quit, press 0. ", validator=FunctionyValidator(numCheckCalcOpt)))
+
+
+    os.system('clear')                       ###This clears anything above this mark###
+
+
+    if CalculatorOption == 1:
+        pageBreak()
+        time.sleep(.4)
+        drop = int(input("What is the drop chance? "))
+        time.sleep(.4)
+        poolsize = int(input("What is the pool size? "))
+        time.sleep(.4)
+        loopBreak = False
+        numFails = 0
+
+        while loopBreak == False:
+            droprate = random.randint(1, poolsize)
+            print(droprate)
+            numFails += 1
+            if droprate <= drop:
+                loopBreak = True
+    
+        pageBreak()
+        dropcalculation = drop / poolsize
+        likelyToGetDrop = 1 - ((1 - dropcalculation) ** numFails)
+        likelyToGetDropPercentage = likelyToGetDrop * 100
+
+        time.sleep(1)
+        print(f"Number of fails until drop: {numFails}")
+        time.sleep(1)
+        print(f"The chances of you getting the drop at this rate was {likelyToGetDropPercentage}%.")
+        time.sleep(1)
+        pageBreak()
+
+
+
+
+#####-----Drop / Dry Calculator-----#####
+
+
+
+
+    if CalculatorOption == 2:
+        pageBreak()
+        time.sleep(.4)
+        drop = int(input("What is the drop chance? "))
+        time.sleep(.4)
+        poolsize = int(input("What is the pool size? "))
+        time.sleep(.4)
+        dropcalculation = drop / poolsize
+        amountOfFails = int(input("How many fails have you had? "))
+        dryCalculation = 1 - ((1 - dropcalculation) ** amountOfFails)
+        percentage_you_should_have_had_by_now = dryCalculation * 100
+        time.sleep(1)
+        print(f"You had a {percentage_you_should_have_had_by_now}% of having the drop by now.")
+        time.sleep(1)
+        pageBreak()
+
+
+
+
+#####-----Multi Drop Rate Calculator-----#####
+
+
+
+
+    if CalculatorOption == 3:
+        pageBreak()
+        time.sleep(.4)
+        totaldrops = int(prompt("How many total drops did you get? ", validator=FunctionyValidator(numTotalDrop)))
+        time.sleep(.4)
+
+
+
+
+        if totaldrops == 2:
+            drop1 = int(input("What is the drop chance of item 1? "))
+            time.sleep(.4)
+            poolsize1 = int(input("What is the pool size of item 1? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            drop2 = int(input("What is the drop chance of item 2? "))
+            time.sleep(.4)
+            poolsize2 = int(input("What is the pool size of item 2? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            dropcalculation1 = drop1 / poolsize1
+            dropcalculation2 = drop2 / poolsize2
+
+            MultiCalculation1 = 1 - ((1 - dropcalculation1))
+            MultiCalculation2 = 1 - ((1 - dropcalculation2))
+
+            percentage_chance_this_could_happen = MultiCalculation1 * MultiCalculation2 * 100
+            time.sleep(1)
+            print(f"You had a {percentage_chance_this_could_happen}% of receiving this.")
+            time.sleep(1)
+            pageBreak()
+
+
+
+        if totaldrops == 3:
+            drop1 = int(input("What is the drop chance of item 1? "))
+            time.sleep(.4)
+            poolsize1 = int(input("What is the pool size of item 1? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            drop2 = int(input("What is the drop chance of item 2? "))
+            time.sleep(.4)
+            poolsize2 = int(input("What is the pool size of item 2? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            drop3 = int(input("What is the drop chance of item 3? "))
+            time.sleep(.4)
+            poolsize3 = int(input("What is the pool size of item 3? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            dropcalculation1 = drop1 / poolsize1
+            dropcalculation2 = drop2 / poolsize2
+            dropcalculation3 = drop3 / poolsize3
+
+            MultiCalculation1 = 1 - ((1 - dropcalculation1))
+            MultiCalculation2 = 1 - ((1 - dropcalculation2))
+            MultiCalculation3 = 1 - ((1 - dropcalculation3))
+
+            percentage_chance_this_could_happen = MultiCalculation1 * MultiCalculation2 * MultiCalculation3 * 100
+            time.sleep(1)
+            print(f"You had a {percentage_chance_this_could_happen}% of receiving this.")
+            time.sleep(1)
+            pageBreak()
+
+
+
+        if totaldrops == 4:
+            drop1 = int(input("What is the drop chance of item 1? "))
+            time.sleep(.4)
+            poolsize1 = int(input("What is the pool size of item 1? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            drop2 = int(input("What is the drop chance of item 2? "))
+            time.sleep(.4)
+            poolsize2 = int(input("What is the pool size of item 2? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            drop3 = int(input("What is the drop chance of item 3? "))
+            time.sleep(.4)
+            poolsize3 = int(input("What is the pool size of item 3? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            drop4 = int(input("What is the drop chance of item 4? "))
+            time.sleep(.4)
+            poolsize4 = int(input("What is the pool size of item 4? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            dropcalculation1 = drop1 / poolsize1
+            dropcalculation2 = drop2 / poolsize2
+            dropcalculation3 = drop3 / poolsize3
+            dropcalculation4 = drop4 / poolsize4
+
+            MultiCalculation1 = 1 - ((1 - dropcalculation1))
+            MultiCalculation2 = 1 - ((1 - dropcalculation2))
+            MultiCalculation3 = 1 - ((1 - dropcalculation3))
+            MultiCalculation4 = 1 - ((1 - dropcalculation4))
+
+            percentage_chance_this_could_happen = MultiCalculation1 * MultiCalculation2 * MultiCalculation3 * MultiCalculation4 * 100
+            time.sleep(1)
+            print(f"You had a {percentage_chance_this_could_happen}% of receiving this.")
+            time.sleep(1)
+            pageBreak()
+
+
+
+        if totaldrops == 5:
+            drop1 = int(input("What is the drop chance of item 1? "))
+            time.sleep(.4)
+            poolsize1 = int(input("What is the pool size of item 1? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            drop2 = int(input("What is the drop chance of item 2? "))
+            time.sleep(.4)
+            poolsize2 = int(input("What is the pool size of item 2? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            drop3 = int(input("What is the drop chance of item 3? "))
+            time.sleep(.4)
+            poolsize3 = int(input("What is the pool size of item 3? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            drop4 = int(input("What is the drop chance of item 4? "))
+            time.sleep(.4)
+            poolsize4 = int(input("What is the pool size of item 4? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            drop5 = int(input("What is the drop chance of item 5? "))
+            time.sleep(.4)
+            poolsize5 = int(input("What is the pool size of item 5? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            dropcalculation1 = drop1 / poolsize1
+            dropcalculation2 = drop2 / poolsize2
+            dropcalculation3 = drop3 / poolsize3
+            dropcalculation4 = drop4 / poolsize4
+            dropcalculation5 = drop5 / poolsize5
+
+            MultiCalculation1 = 1 - ((1 - dropcalculation1))
+            MultiCalculation2 = 1 - ((1 - dropcalculation2))
+            MultiCalculation3 = 1 - ((1 - dropcalculation3))
+            MultiCalculation4 = 1 - ((1 - dropcalculation4))
+            MultiCalculation5 = 1 - ((1 - dropcalculation5))
+
+            percentage_chance_this_could_happen = MultiCalculation1 * MultiCalculation2 * MultiCalculation3 * MultiCalculation4 * MultiCalculation5 * 100
+            time.sleep(1)
+            print(f"You had a {percentage_chance_this_could_happen}% of receiving this.")
+            time.sleep(1)
+            pageBreak()
+
+
+
+        if totaldrops == 6:
+            drop1 = int(input("What is the drop chance of item 1? "))
+            time.sleep(.4)
+            poolsize1 = int(input("What is the pool size of item 1? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            drop2 = int(input("What is the drop chance of item 2? "))
+            time.sleep(.4)
+            poolsize2 = int(input("What is the pool size of item 2? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            drop3 = int(input("What is the drop chance of item 3? "))
+            time.sleep(.4)
+            poolsize3 = int(input("What is the pool size of item 3? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            drop4 = int(input("What is the drop chance of item 4? "))
+            time.sleep(.4)
+            poolsize4 = int(input("What is the pool size of item 4? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            drop5 = int(input("What is the drop chance of item 5? "))
+            time.sleep(.4)
+            poolsize5 = int(input("What is the pool size of item 5? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            drop6 = int(input("What is the drop chance of item 6? "))
+            time.sleep(.4)
+            poolsize6 = int(input("What is the pool size of item 6? "))
+            time.sleep(.4)
+            pageBreak()
+            time.sleep(.4)
+
+            dropcalculation1 = drop1 / poolsize1
+            dropcalculation2 = drop2 / poolsize2
+            dropcalculation3 = drop3 / poolsize3
+            dropcalculation4 = drop4 / poolsize4
+            dropcalculation5 = drop5 / poolsize5
+            dropcalculation6 = drop6 / poolsize6
+
+            MultiCalculation1 = 1 - ((1 - dropcalculation1))
+            MultiCalculation2 = 1 - ((1 - dropcalculation2))
+            MultiCalculation3 = 1 - ((1 - dropcalculation3))
+            MultiCalculation4 = 1 - ((1 - dropcalculation4))
+            MultiCalculation5 = 1 - ((1 - dropcalculation5))
+            MultiCalculation6 = 1 - ((1 - dropcalculation6))
+
+            percentage_chance_this_could_happen = MultiCalculation1 * MultiCalculation2 * MultiCalculation3 * MultiCalculation4 * MultiCalculation5 * MultiCalculation6 * 100
+            time.sleep(1)
+            print(f"You had a {percentage_chance_this_could_happen}% of receiving this.")
+            time.sleep(1)
+            pageBreak()
+
+
+
+
+#####-----Quit Calculator-----#####
+
+
+
+
+    if CalculatorOption == 0:
+        quitcalc = True
